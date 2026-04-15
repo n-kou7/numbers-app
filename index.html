@@ -27,31 +27,34 @@
 
     .app {
       width: 100vw;
-      height: 100vh;
+      height: 100svh;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
-      padding: 4px 6px 6px;
-      gap: 4px;
+      padding: 2px 6px 4px;
+      gap: 3px;
+      overflow: hidden;
     }
 
     .control-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      min-height: 46px;
+      gap: 5px;
+      min-height: 40px;
+      flex: 0 0 auto;
     }
 
     .star-box {
-      flex: 0 0 110px;
-      min-width: 110px;
-      height: 40px;
+      flex: 0 0 100px;
+      min-width: 100px;
+      height: 36px;
       border: 2px solid #cfcfcf;
       border-radius: 10px;
       background: #fff;
       display: flex;
       align-items: center;
       padding: 0 10px;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
       color: #111;
       overflow: hidden;
@@ -70,6 +73,7 @@
       overflow-x: auto;
       scrollbar-width: none;
       min-width: 0;
+      min-height: 0;
     }
 
     .filter-row::-webkit-scrollbar {
@@ -80,13 +84,13 @@
       flex: 0 0 auto;
       border: none;
       border-radius: 999px;
-      padding: 7px 10px;
-      font-size: 14px;
+      padding: 5px 8px;
+      font-size: 13px;
       font-weight: 700;
       background: #8e8e93;
       color: white;
       white-space: nowrap;
-      height: 40px;
+      height: 36px;
     }
 
     .filter-btn.active {
@@ -102,13 +106,13 @@
     .main-btn {
       border: none;
       border-radius: 10px;
-      padding: 8px 10px;
-      font-size: 16px;
+      padding: 6px 8px;
+      font-size: 14px;
       font-weight: 700;
       color: white;
       background: #0a84ff;
-      min-width: 62px;
-      height: 40px;
+      min-width: 58px;
+      height: 36px;
       white-space: nowrap;
     }
 
@@ -120,6 +124,7 @@
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       gap: 4px;
+      flex: 0 0 auto;
     }
 
     .pad button {
@@ -127,20 +132,20 @@
       border-radius: 8px;
       background: #ffffff;
       box-shadow: inset 0 0 0 2px #dcdcdc;
-      min-height: 34px;
-      font-size: 18px;
+      min-height: 30px;
+      font-size: 16px;
       font-weight: 700;
       color: #111;
       padding: 0;
     }
 
     .pad button.clear-btn {
-      font-size: 14px;
+      font-size: 13px;
     }
 
     .area {
       position: relative;
-      flex: 1;
+      flex: 1 1 auto;
       min-height: 0;
       background: rgba(255, 230, 120, 0.35);
       border-radius: 16px;
@@ -163,7 +168,7 @@
       padding: 10px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px 8px;
+      gap: 10px 8px;
       align-content: start;
     }
 
@@ -176,13 +181,13 @@
     }
 
     .summary-card img {
-      width: 78px;
-      height: 78px;
+      width: 72px;
+      height: 72px;
       object-fit: contain;
     }
 
     .summary-text {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: 700;
       line-height: 1.1;
       word-break: keep-all;
@@ -222,44 +227,49 @@
 
     @media (min-width: 1000px) {
       .star-box {
-        flex-basis: 120px;
-        min-width: 120px;
-        font-size: 24px;
+        flex-basis: 110px;
+        min-width: 110px;
+        height: 38px;
+        font-size: 21px;
       }
 
       .filter-btn {
-        font-size: 15px;
+        font-size: 14px;
+        height: 38px;
       }
 
       .main-btn {
-        font-size: 17px;
+        font-size: 15px;
+        height: 38px;
+        min-width: 60px;
       }
 
       .pad button {
-        font-size: 19px;
+        min-height: 32px;
+        font-size: 17px;
       }
 
       .scatter-item {
-        width: 68px;
-        height: 68px;
+        width: 66px;
+        height: 66px;
       }
 
       .summary-card img {
-        width: 84px;
-        height: 84px;
+        width: 76px;
+        height: 76px;
       }
 
       .summary-text {
-        font-size: 30px;
+        font-size: 26px;
       }
 
       .overlay img {
-        width: 200px;
-        height: 200px;
+        width: 190px;
+        height: 190px;
       }
 
       .overlay-text {
-        font-size: 88px;
+        font-size: 80px;
       }
     }
   </style>
