@@ -514,9 +514,11 @@
       const img = document.createElement("img");
       img.src = TYPES[typeKey].image;
 
+      const count = placedItems.filter(item => item.typeKey === typeKey).length;
+
       const text = document.createElement("div");
       text.className = "overlay-text";
-      text.textContent = readingText(1, typeKey);
+      text.textContent = readingText(count, typeKey);
 
       const sub = document.createElement("div");
       sub.className = "overlay-sub";
