@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>かずと もの</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: sans-serif;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    body {
+      touch-action: manipulation;
+      user-select: none;
+    }
+
+    .app {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 12px 12px;
+      gap: 8px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-top: 2px;
+    }
+
+    .top-row {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .star-box {
+      flex: 1;
+      min-height: 50px;
+      border: 2px solid #cfcfcf;
+      border-radius: 10px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      font-size: 28px;
+      font-weight: 700;
+      color: #111;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .star-box.placeholder {
+      color: #9a9a9a;
+      font-weight: 500;
+    }
+
+    .main-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      background: #0a84ff;
+      min-width: 92px;
+    }
+
+    .main-btn.secondary {
+      background: #34a853;
+    }
+
+    .filter-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 2px;
+      scrollbar-width: none;
+    }
+
+    .filter-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .filter-btn {
+      flex: 0 0 auto;
+      border: none;
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-size: 18px;
+      font-weight: 700;
+      background: #8e8e93;
+      color: white;
+    }
+
+    .filter-btn.active {
+      background: #0a84ff;
+    }
+
+    .pad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .pad button {
+      border: none;
+      border-radius: 14px;
+      background: #ffffff;
+      box-shadow: inset 0 0 0 2px #dcdcdc;
+      min-height: 52px;
+      font-size: 28px;
+      font-weight: 700;
+      color: #111;
+    }
+
+    .area {
+      position: relative;
+      flex: 1;
+      background: rgba(255, 230, 120, 0.35);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .scatter-item {
+      position: absolute;
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+    }
+
+    .summary {
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px 12px;
+      align-content: start;
+    }
+
+    .summary-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      text-align: center;
+    }
+
+    .summary-card img {
+      width: 92px;
+      height: 92px;
+      object-fit: contain;
+    }
+
+    .summary-text {
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.1;
+      word-break: keep-all;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 20px;
+    }
+
+    .overlay img {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+    }
+
+    .overlay-text {
+      margin-top: 16px;
+      font-size: 72px;
+      font-weight: 800;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .overlay-sub {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #777;
+    }
+
+    @media (min-width: 1000px) {
+      .title {
+        font-size: 34px;
+      }
+
+      .star-box {
+        min-height: 56px;
+        font-size: 32px;
+      }
+
+      .main-btn {
+        min-width: 100px;
+        font-size: 22px;
+      }
+
+      .filter-btn {
+        font-size: 19px;
+      }
+
+      .pad button {
+        min-height: 56px;
+        font-size: 30px;
+      }
+
+      .scatter-item {
+        width: 78px;
+        height: 78px;
+      }
+
+      .summary-card img {
+        width: 110px;
+        height: 110px;
+      }
+
+      .summary-text {
+        font-size: 40px;
+      }
+
+      .overlay img {
+        width: 220px;
+        height: 220px;
+      }
+
+      .overlay-text {
+        font-size: 96px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="title">かずと もの</div>
+
+    <div class="top-row">
+      <div id="starBox" class="star-box placeholder">すうじ</div>
+      <button class="main-btn" onclick="showScatter()">表示</button>
+      <button class="main-btn secondary" onclick="showSummaryView()">ごうけい</button>
+    </div>
+
+    <div class="filter-row" id="filterRow"></div>
+
+    <div class="pad">
+      <button onclick="pressNumber('1')">1</button>
+      <button onclick="pressNumber('2')">2</button>
+      <button onclick="pressNumber('3')">3</button>
+      <button onclick="pressNumber('4')">4</button>
+      <button onclick="pressNumber('5')">5</button>
+      <button onclick="pressNumber('6')">6</button>
+      <button onclick="pressNumber('7')">7</button>
+      <button onclick="pressNumber('8')">8</button>
+      <button onclick="pressNumber('9')">9</button>
+      <button onclick="clearNumber()">クリア</button>
+      <button onclick="pressNumber('0')">0</button>
+      <button onclick="backspaceNumber()">←</button>
+    </div>
+
+    <div id="area" class="area"></div>
+  </div>
+
+  <script>
+    const TYPES = {
+      apple:  { image: "apple.png",  label: "りんご" },
+      pencil: { image: "pencil.png", label: "えんぴつ" },
+      car:    { image: "car.png",    label: "くるま" },
+      plate:  { image: "plate.png",  label: "おさら" },
+      dog:    { image: "dog.png",    label: "いぬ" }
+    };
+
+    const FILTERS = [
+      { key: "random", label: "ランダム" },
+      { key: "apple",  label: "りんご" },
+      { key: "pencil", label: "えんぴつ" },
+      { key: "car",    label: "くるま" },
+      { key: "plate",  label: "おさら" },
+      { key: "dog",    label: "いぬ" }
+    ];
+
+    let numberInput = "";
+    let selectedFilter = "random";
+    let placedItems = [];
+    let currentMode = "scatter";
+
+    const area = document.getElementById("area");
+    const starBox = document.getElementById("starBox");
+    const filterRow = document.getElementById("filterRow");
+
+    function buildFilterButtons() {
+      filterRow.innerHTML = "";
+      FILTERS.forEach(filter => {
+        const btn = document.createElement("button");
+        btn.className = "filter-btn" + (selectedFilter === filter.key ? " active" : "");
+        btn.textContent = filter.label;
+        btn.onclick = () => {
+          selectedFilter = filter.key;
+          updateFilterButtons();
+          if (numberInput.length > 0) {
+            regenerateItems();
+            renderScatter();
+          }
+        };
+        filterRow.appendChild(btn);
+      });
+    }
+
+    function updateFilterButtons() {
+      const buttons = filterRow.querySelectorAll(".filter-btn");
+      buttons.forEach((btn, index) => {
+        btn.classList.toggle("active", FILTERS[index].key === selectedFilter);
+      });
+    }
+
+    function updateStarBox() {
+      if (numberInput.length === 0) {
+        starBox.textContent = "すうじ";
+        starBox.classList.add("placeholder");
+      } else {
+        starBox.textContent = "★".repeat(numberInput.length);
+        starBox.classList.remove("placeholder");
+      }
+    }
+
+    function pressNumber(n) {
+      if (numberInput.length >= 2) return;
+      if (numberInput === "0") {
+        numberInput = n;
+      } else {
+        numberInput += n;
+      }
+      updateStarBox();
+    }
+
+    function clearNumber() {
+      numberInput = "";
+      placedItems = [];
+      currentMode = "scatter";
+      updateStarBox();
+      renderScatter();
+    }
+
+    function backspaceNumber() {
+      numberInput = numberInput.slice(0, -1);
+      updateStarBox();
+    }
+
+    function filteredTypeKeys() {
+      if (selectedFilter === "random") {
+        return Object.keys(TYPES);
+      }
+      return [selectedFilter];
+    }
+
+    function regenerateItems() {
+      const count = parseInt(numberInput, 10);
+      if (!count || count <= 0) {
+        placedItems = [];
+        return;
+      }
+
+      const allowed = filteredTypeKeys();
+      const rect = area.getBoundingClientRect();
+
+      const cellSize = 95;
+      const cols = Math.max(1, Math.floor(rect.width / cellSize));
+      const rows = Math.max(1, Math.floor(rect.height / cellSize));
+
+      const cells = [];
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const baseX = c * cellSize + cellSize / 2;
+          const baseY = r * cellSize + cellSize / 2;
+          const jitterX = rand(-8, 8);
+          const jitterY = rand(-8, 8);
+          cells.push({
+            x: clamp(baseX + jitterX, 40, rect.width - 40),
+            y: clamp(baseY + jitterY, 40, rect.height - 40)
+          });
+        }
+      }
+
+      shuffle(cells);
+
+      placedItems = [];
+      const maxItems = Math.min(count, cells.length);
+
+      for (let i = 0; i < maxItems; i++) {
+        const typeKey = selectedFilter === "random"
+          ? allowed[Math.floor(Math.random() * allowed.length)]
+          : allowed[0];
+
+        placedItems.push({
+          typeKey,
+          x: cells[i].x,
+          y: cells[i].y,
+          size: 72
+        });
+      }
+    }
+
+    function showScatter() {
+      currentMode = "scatter";
+      regenerateItems();
+      renderScatter();
+    }
+
+    function renderScatter() {
+      area.innerHTML = "";
+
+      placedItems.forEach(item => {
+        const img = document.createElement("img");
+        img.src = TYPES[item.typeKey].image;
+        img.className = "scatter-item";
+        img.style.left = item.x + "px";
+        img.style.top = item.y + "px";
+        img.style.width = item.size + "px";
+        img.style.height = item.size + "px";
+        img.onclick = () => showOverlay(item.typeKey);
+        area.appendChild(img);
+      });
+    }
+
+    function showSummaryView() {
+      currentMode = "summary";
+      renderSummary();
+    }
+
+    function renderSummary() {
+      area.innerHTML = "";
+
+      const summary = document.createElement("div");
+      summary.className = "summary";
+
+      const counts = {};
+      placedItems.forEach(item => {
+        counts[item.typeKey] = (counts[item.typeKey] || 0) + 1;
+      });
+
+      const orderedKeys = Object.keys(counts).sort();
+
+      orderedKeys.forEach(typeKey => {
+        const card = document.createElement("div");
+        card.className = "summary-card";
+
+        const img = document.createElement("img");
+        img.src = TYPES[typeKey].image;
+
+        const text = document.createElement("div");
+        text.className = "summary-text";
+        text.textContent = readingText(counts[typeKey], typeKey);
+
+        card.appendChild(img);
+        card.appendChild(text);
+        summary.appendChild(card);
+      });
+
+      summary.onclick = () => {
+        currentMode = "scatter";
+        renderScatter();
+      };
+
+      area.appendChild(summary);
+    }
+
+    function showOverlay(typeKey) {
+      const overlay = document.createElement("div");
+      overlay.className = "overlay";
+
+      const img = document.createElement("img");
+      img.src = TYPES[typeKey].image;
+
+      const text = document.createElement("div");
+      text.className = "overlay-text";
+      text.textContent = readingText(1, typeKey);
+
+      const sub = document.createElement("div");
+      sub.className = "overlay-sub";
+      sub.textContent = "タップで戻る";
+
+      overlay.appendChild(img);
+      overlay.appendChild(text);
+      overlay.appendChild(sub);
+
+      overlay.onclick = () => overlay.remove();
+      document.body.appendChild(overlay);
+    }
+
+    function readingText(count, typeKey) {
+      switch (typeKey) {
+        case "apple":
+          return `${count}こ`;
+        case "car":
+          return `${count}だい`;
+        case "plate":
+          return `${count}まい`;
+        case "pencil":
+          return `${count}${pencilReading(count)}`;
+        case "dog":
+          return `${count}${dogReading(count)}`;
+        default:
+          return `${count}`;
+      }
+    }
+
+    function pencilReading(count) {
+      if ([1, 6, 8, 10].includes(count)) return "ぽん";
+      if (count === 3) return "ぼん";
+      return "ほん";
+    }
+
+    function dogReading(count) {
+      if ([1, 6, 8, 10].includes(count)) return "ぴき";
+      if (count === 3) return "びき";
+      return "ひき";
+    }
+
+    function rand(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    window.addEventListener("resize", () => {
+      if (currentMode === "scatter" && placedItems.length > 0) {
+        regenerateItems();
+        renderScatter();
+      } else if (currentMode === "summary") {
+        renderSummary();
+      }
+    });
+
+    buildFilterButtons();
+    updateStarBox();
+    renderScatter();
+  </script>
+</body>
+</html>
