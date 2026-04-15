@@ -30,34 +30,36 @@
       height: 100vh;
       display: flex;
       flex-direction: column;
-      padding: 10px 12px 12px;
-      gap: 8px;
+      padding: 8px 10px 10px;
+      gap: 6px;
     }
 
     .title {
       text-align: center;
-      font-size: 30px;
+      font-size: 28px;
       font-weight: 700;
-      line-height: 1.2;
-      margin-top: 2px;
+      line-height: 1.1;
+      margin: 0;
     }
 
-    .top-row {
+    .control-row {
       display: flex;
-      gap: 8px;
       align-items: center;
+      gap: 8px;
+      min-height: 52px;
     }
 
     .star-box {
-      flex: 1;
-      min-height: 50px;
+      flex: 0 0 130px;
+      min-width: 130px;
+      height: 44px;
       border: 2px solid #cfcfcf;
       border-radius: 10px;
       background: #fff;
       display: flex;
       align-items: center;
-      padding: 0 14px;
-      font-size: 28px;
+      padding: 0 12px;
+      font-size: 24px;
       font-weight: 700;
       color: #111;
       overflow: hidden;
@@ -69,27 +71,13 @@
       font-weight: 500;
     }
 
-    .main-btn {
-      border: none;
-      border-radius: 12px;
-      padding: 12px 16px;
-      font-size: 20px;
-      font-weight: 700;
-      color: white;
-      background: #0a84ff;
-      min-width: 92px;
-    }
-
-    .main-btn.secondary {
-      background: #34a853;
-    }
-
     .filter-row {
+      flex: 1 1 auto;
       display: flex;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
-      padding-bottom: 2px;
       scrollbar-width: none;
+      min-width: 0;
     }
 
     .filter-row::-webkit-scrollbar {
@@ -100,32 +88,61 @@
       flex: 0 0 auto;
       border: none;
       border-radius: 999px;
-      padding: 10px 16px;
-      font-size: 18px;
+      padding: 8px 12px;
+      font-size: 16px;
       font-weight: 700;
       background: #8e8e93;
       color: white;
+      white-space: nowrap;
     }
 
     .filter-btn.active {
       background: #0a84ff;
     }
 
+    .action-row {
+      display: flex;
+      gap: 6px;
+      flex: 0 0 auto;
+    }
+
+    .main-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 18px;
+      font-weight: 700;
+      color: white;
+      background: #0a84ff;
+      min-width: 72px;
+      height: 44px;
+      white-space: nowrap;
+    }
+
+    .main-btn.secondary {
+      background: #34a853;
+    }
+
     .pad {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
     }
 
     .pad button {
       border: none;
-      border-radius: 14px;
+      border-radius: 10px;
       background: #ffffff;
       box-shadow: inset 0 0 0 2px #dcdcdc;
-      min-height: 52px;
-      font-size: 28px;
+      min-height: 40px;
+      font-size: 22px;
       font-weight: 700;
       color: #111;
+      padding: 0;
+    }
+
+    .pad button.wide {
+      font-size: 18px;
     }
 
     .area {
@@ -134,12 +151,13 @@
       background: rgba(255, 230, 120, 0.35);
       border-radius: 18px;
       overflow: hidden;
+      min-height: 0;
     }
 
     .scatter-item {
       position: absolute;
-      width: 72px;
-      height: 72px;
+      width: 68px;
+      height: 68px;
       object-fit: contain;
       transform: translate(-50%, -50%);
       cursor: pointer;
@@ -149,10 +167,10 @@
       width: 100%;
       height: 100%;
       overflow: auto;
-      padding: 16px;
+      padding: 12px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px 12px;
+      gap: 14px 10px;
       align-content: start;
     }
 
@@ -160,19 +178,18 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      gap: 8px;
+      gap: 6px;
       text-align: center;
     }
 
     .summary-card img {
-      width: 92px;
-      height: 92px;
+      width: 84px;
+      height: 84px;
       object-fit: contain;
     }
 
     .summary-text {
-      font-size: 34px;
+      font-size: 30px;
       font-weight: 700;
       line-height: 1.1;
       word-break: keep-all;
@@ -212,40 +229,44 @@
 
     @media (min-width: 1000px) {
       .title {
-        font-size: 34px;
-      }
-
-      .star-box {
-        min-height: 56px;
-        font-size: 32px;
-      }
-
-      .main-btn {
-        min-width: 100px;
-        font-size: 22px;
-      }
-
-      .filter-btn {
-        font-size: 19px;
-      }
-
-      .pad button {
-        min-height: 56px;
         font-size: 30px;
       }
 
+      .star-box {
+        flex-basis: 150px;
+        min-width: 150px;
+        height: 46px;
+        font-size: 26px;
+      }
+
+      .filter-btn {
+        font-size: 17px;
+        padding: 8px 13px;
+      }
+
+      .main-btn {
+        height: 46px;
+        font-size: 19px;
+        min-width: 78px;
+      }
+
+      .pad button {
+        min-height: 42px;
+        font-size: 24px;
+      }
+
       .scatter-item {
-        width: 78px;
-        height: 78px;
+        width: 72px;
+        height: 72px;
       }
 
       .summary-card img {
-        width: 110px;
-        height: 110px;
+        width: 92px;
+        height: 92px;
       }
 
       .summary-text {
-        font-size: 40px;
+        font-size: 34px;
       }
 
       .overlay img {
@@ -263,13 +284,16 @@
   <div class="app">
     <div class="title">かずと もの</div>
 
-    <div class="top-row">
+    <div class="control-row">
       <div id="starBox" class="star-box placeholder">すうじ</div>
-      <button class="main-btn" onclick="showScatter()">表示</button>
-      <button class="main-btn secondary" onclick="showSummaryView()">ごうけい</button>
-    </div>
 
-    <div class="filter-row" id="filterRow"></div>
+      <div class="filter-row" id="filterRow"></div>
+
+      <div class="action-row">
+        <button class="main-btn" onclick="showScatter()">表示</button>
+        <button class="main-btn secondary" onclick="showSummaryView()">ごうけい</button>
+      </div>
+    </div>
 
     <div class="pad">
       <button onclick="pressNumber('1')">1</button>
@@ -278,10 +302,11 @@
       <button onclick="pressNumber('4')">4</button>
       <button onclick="pressNumber('5')">5</button>
       <button onclick="pressNumber('6')">6</button>
+
       <button onclick="pressNumber('7')">7</button>
       <button onclick="pressNumber('8')">8</button>
       <button onclick="pressNumber('9')">9</button>
-      <button onclick="clearNumber()">クリア</button>
+      <button class="wide" onclick="clearNumber()">クリア</button>
       <button onclick="pressNumber('0')">0</button>
       <button onclick="backspaceNumber()">←</button>
     </div>
@@ -391,7 +416,7 @@
       const allowed = filteredTypeKeys();
       const rect = area.getBoundingClientRect();
 
-      const cellSize = 95;
+      const cellSize = 88;
       const cols = Math.max(1, Math.floor(rect.width / cellSize));
       const rows = Math.max(1, Math.floor(rect.height / cellSize));
 
@@ -400,11 +425,11 @@
         for (let c = 0; c < cols; c++) {
           const baseX = c * cellSize + cellSize / 2;
           const baseY = r * cellSize + cellSize / 2;
-          const jitterX = rand(-8, 8);
-          const jitterY = rand(-8, 8);
+          const jitterX = rand(-6, 6);
+          const jitterY = rand(-6, 6);
           cells.push({
-            x: clamp(baseX + jitterX, 40, rect.width - 40),
-            y: clamp(baseY + jitterY, 40, rect.height - 40)
+            x: clamp(baseX + jitterX, 38, rect.width - 38),
+            y: clamp(baseY + jitterY, 38, rect.height - 38)
           });
         }
       }
@@ -423,7 +448,7 @@
           typeKey,
           x: cells[i].x,
           y: cells[i].y,
-          size: 72
+          size: 68
         });
       }
     }
