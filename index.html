@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>かずと もの</title>
+  <title>numbers</title>
   <style>
     * {
       box-sizing: border-box;
@@ -30,36 +30,28 @@
       height: 100vh;
       display: flex;
       flex-direction: column;
-      padding: 8px 10px 10px;
-      gap: 6px;
-    }
-
-    .title {
-      text-align: center;
-      font-size: 28px;
-      font-weight: 700;
-      line-height: 1.1;
-      margin: 0;
+      padding: 4px 6px 6px;
+      gap: 4px;
     }
 
     .control-row {
       display: flex;
       align-items: center;
-      gap: 8px;
-      min-height: 52px;
+      gap: 6px;
+      min-height: 46px;
     }
 
     .star-box {
-      flex: 0 0 130px;
-      min-width: 130px;
-      height: 44px;
+      flex: 0 0 110px;
+      min-width: 110px;
+      height: 40px;
       border: 2px solid #cfcfcf;
       border-radius: 10px;
       background: #fff;
       display: flex;
       align-items: center;
-      padding: 0 12px;
-      font-size: 24px;
+      padding: 0 10px;
+      font-size: 22px;
       font-weight: 700;
       color: #111;
       overflow: hidden;
@@ -74,7 +66,7 @@
     .filter-row {
       flex: 1 1 auto;
       display: flex;
-      gap: 6px;
+      gap: 5px;
       overflow-x: auto;
       scrollbar-width: none;
       min-width: 0;
@@ -88,12 +80,13 @@
       flex: 0 0 auto;
       border: none;
       border-radius: 999px;
-      padding: 8px 12px;
-      font-size: 16px;
+      padding: 7px 10px;
+      font-size: 14px;
       font-weight: 700;
       background: #8e8e93;
       color: white;
       white-space: nowrap;
+      height: 40px;
     }
 
     .filter-btn.active {
@@ -102,20 +95,20 @@
 
     .action-row {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       flex: 0 0 auto;
     }
 
     .main-btn {
       border: none;
       border-radius: 10px;
-      padding: 10px 12px;
-      font-size: 18px;
+      padding: 8px 10px;
+      font-size: 16px;
       font-weight: 700;
       color: white;
       background: #0a84ff;
-      min-width: 72px;
-      height: 44px;
+      min-width: 62px;
+      height: 40px;
       white-space: nowrap;
     }
 
@@ -125,39 +118,39 @@
 
     .pad {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 6px;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 4px;
     }
 
     .pad button {
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       background: #ffffff;
       box-shadow: inset 0 0 0 2px #dcdcdc;
-      min-height: 40px;
-      font-size: 22px;
+      min-height: 34px;
+      font-size: 18px;
       font-weight: 700;
       color: #111;
       padding: 0;
     }
 
-    .pad button.wide {
-      font-size: 18px;
+    .pad button.clear-btn {
+      font-size: 14px;
     }
 
     .area {
       position: relative;
       flex: 1;
-      background: rgba(255, 230, 120, 0.35);
-      border-radius: 18px;
-      overflow: hidden;
       min-height: 0;
+      background: rgba(255, 230, 120, 0.35);
+      border-radius: 16px;
+      overflow: hidden;
     }
 
     .scatter-item {
       position: absolute;
-      width: 68px;
-      height: 68px;
+      width: 64px;
+      height: 64px;
       object-fit: contain;
       transform: translate(-50%, -50%);
       cursor: pointer;
@@ -167,10 +160,10 @@
       width: 100%;
       height: 100%;
       overflow: auto;
-      padding: 12px;
+      padding: 10px;
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px 10px;
+      gap: 12px 8px;
       align-content: start;
     }
 
@@ -178,18 +171,18 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       text-align: center;
     }
 
     .summary-card img {
-      width: 84px;
-      height: 84px;
+      width: 78px;
+      height: 78px;
       object-fit: contain;
     }
 
     .summary-text {
-      font-size: 30px;
+      font-size: 28px;
       font-weight: 700;
       line-height: 1.1;
       word-break: keep-all;
@@ -208,13 +201,13 @@
     }
 
     .overlay img {
-      width: 180px;
-      height: 180px;
+      width: 170px;
+      height: 170px;
       object-fit: contain;
     }
 
     .overlay-text {
-      margin-top: 16px;
+      margin-top: 14px;
       font-size: 72px;
       font-weight: 800;
       line-height: 1;
@@ -222,68 +215,57 @@
     }
 
     .overlay-sub {
-      margin-top: 20px;
-      font-size: 24px;
+      margin-top: 18px;
+      font-size: 22px;
       color: #777;
     }
 
     @media (min-width: 1000px) {
-      .title {
-        font-size: 30px;
-      }
-
       .star-box {
-        flex-basis: 150px;
-        min-width: 150px;
-        height: 46px;
-        font-size: 26px;
-      }
-
-      .filter-btn {
-        font-size: 17px;
-        padding: 8px 13px;
-      }
-
-      .main-btn {
-        height: 46px;
-        font-size: 19px;
-        min-width: 78px;
-      }
-
-      .pad button {
-        min-height: 42px;
+        flex-basis: 120px;
+        min-width: 120px;
         font-size: 24px;
       }
 
+      .filter-btn {
+        font-size: 15px;
+      }
+
+      .main-btn {
+        font-size: 17px;
+      }
+
+      .pad button {
+        font-size: 19px;
+      }
+
       .scatter-item {
-        width: 72px;
-        height: 72px;
+        width: 68px;
+        height: 68px;
       }
 
       .summary-card img {
-        width: 92px;
-        height: 92px;
+        width: 84px;
+        height: 84px;
       }
 
       .summary-text {
-        font-size: 34px;
+        font-size: 30px;
       }
 
       .overlay img {
-        width: 220px;
-        height: 220px;
+        width: 200px;
+        height: 200px;
       }
 
       .overlay-text {
-        font-size: 96px;
+        font-size: 88px;
       }
     }
   </style>
 </head>
 <body>
   <div class="app">
-    <div class="title">かずと もの</div>
-
     <div class="control-row">
       <div id="starBox" class="star-box placeholder">すうじ</div>
 
@@ -302,13 +284,12 @@
       <button onclick="pressNumber('4')">4</button>
       <button onclick="pressNumber('5')">5</button>
       <button onclick="pressNumber('6')">6</button>
-
       <button onclick="pressNumber('7')">7</button>
       <button onclick="pressNumber('8')">8</button>
       <button onclick="pressNumber('9')">9</button>
-      <button class="wide" onclick="clearNumber()">クリア</button>
       <button onclick="pressNumber('0')">0</button>
       <button onclick="backspaceNumber()">←</button>
+      <button class="clear-btn" onclick="clearNumber()">クリア</button>
     </div>
 
     <div id="area" class="area"></div>
@@ -416,7 +397,7 @@
       const allowed = filteredTypeKeys();
       const rect = area.getBoundingClientRect();
 
-      const cellSize = 88;
+      const cellSize = 84;
       const cols = Math.max(1, Math.floor(rect.width / cellSize));
       const rows = Math.max(1, Math.floor(rect.height / cellSize));
 
@@ -425,11 +406,11 @@
         for (let c = 0; c < cols; c++) {
           const baseX = c * cellSize + cellSize / 2;
           const baseY = r * cellSize + cellSize / 2;
-          const jitterX = rand(-6, 6);
-          const jitterY = rand(-6, 6);
+          const jitterX = rand(-5, 5);
+          const jitterY = rand(-5, 5);
           cells.push({
-            x: clamp(baseX + jitterX, 38, rect.width - 38),
-            y: clamp(baseY + jitterY, 38, rect.height - 38)
+            x: clamp(baseX + jitterX, 36, rect.width - 36),
+            y: clamp(baseY + jitterY, 36, rect.height - 36)
           });
         }
       }
@@ -448,7 +429,7 @@
           typeKey,
           x: cells[i].x,
           y: cells[i].y,
-          size: 68
+          size: 64
         });
       }
     }
