@@ -154,8 +154,8 @@
 
     .scatter-item {
       position: absolute;
-      width: 64px;
-      height: 64px;
+      width: 100px;
+      height: 100px;
       object-fit: contain;
       transform: translate(-50%, -50%);
       cursor: pointer;
@@ -247,11 +247,6 @@
       .pad button {
         min-height: 32px;
         font-size: 17px;
-      }
-
-      .scatter-item {
-        width: 66px;
-        height: 66px;
       }
 
       .summary-card img {
@@ -407,7 +402,10 @@
       const allowed = filteredTypeKeys();
       const rect = area.getBoundingClientRect();
 
-      const cellSize = 84;
+      const itemSize = 100;
+      const edgeMargin = itemSize / 2 + 6;
+      const cellSize = 115;
+
       const cols = Math.max(1, Math.floor(rect.width / cellSize));
       const rows = Math.max(1, Math.floor(rect.height / cellSize));
 
@@ -416,11 +414,12 @@
         for (let c = 0; c < cols; c++) {
           const baseX = c * cellSize + cellSize / 2;
           const baseY = r * cellSize + cellSize / 2;
-          const jitterX = rand(-5, 5);
-          const jitterY = rand(-5, 5);
+          const jitterX = rand(-6, 6);
+          const jitterY = rand(-6, 6);
+
           cells.push({
-            x: clamp(baseX + jitterX, 36, rect.width - 36),
-            y: clamp(baseY + jitterY, 36, rect.height - 36)
+            x: clamp(baseX + jitterX, edgeMargin, rect.width - edgeMargin),
+            y: clamp(baseY + jitterY, edgeMargin, rect.height - edgeMargin)
           });
         }
       }
@@ -439,7 +438,7 @@
           typeKey,
           x: cells[i].x,
           y: cells[i].y,
-          size: 100
+          size: itemSize
         });
       }
     }
